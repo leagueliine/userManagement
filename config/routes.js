@@ -4,9 +4,9 @@ const routes = express.Router()
 
 
 let db = [
-  {'1':{Nome: 'Usuario 1', Idade: '23'} },
-  {'2':{Nome: 'Usuario 2', Idade: '23'} },
-  {'3':{Nome: 'Usuario 3', Idade: '23'} }
+  {id:'1', Nome: 'Usuario 1', Idade: '22'},
+  {id:'2', Nome: 'Usuario 2', Idade: '23'},
+  {id:'3', Nome: 'Usuario 3', Idade: '25'}
 ]
 // Buscar Dados
 routes.get('/', (req, res) => {
@@ -23,12 +23,28 @@ routes.post('/add', (req, res) => {
   db.push(body)
   return res.json(body)
 })
+
+  //atualizar dados
+routes.put('/:id', (req, res) =>{
+  let id = req.params.id;
+  let objeto = req.body;
+  
+ let usuario = db.find(function(item){
+   return item.id == id
+ })
+   usuario.Nome = objeto.nome
+   usuario.Idade = objeto.idade
+
+  return res.json(db)
+
+})
+
   //deletar dados
 routes.delete('/:id',(req,res) =>{
   const id = req.params.id
 
   let newDB = db.filter(item =>{
-    if(!item[id])
+    if(item.id != req.params.id)
       return item
   })
   db = newDB
