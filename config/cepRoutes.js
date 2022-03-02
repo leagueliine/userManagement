@@ -28,15 +28,14 @@ routes.get('/', (req, res) => {
      let id = req.params.id;
      let objeto = req.body;
      
-    let usuario = db.find(function(item){
+     let usuario = db.find(function(item){
       return item.id == id
     })
    
-      usuario.rua = objeto.rua
-      usuario.numero = objeto.numero
+     usuario.rua = objeto.rua
+     usuario.numero = objeto.numero
    
      return res.json(db)
-   
    })
    
      //deletar dados
@@ -45,8 +44,9 @@ routes.get('/', (req, res) => {
    
      let newDB = db.filter(item =>{
        if(item.id != req.params.id)
-        return item
+       return item
      })
+     
      db = newDB
      return res.send(newDB)
    })
